@@ -13,7 +13,7 @@ export default {
     titleTemplate: '%s - nu-trafic-light-app',
     title: 'nu-trafic-light-app',
     htmlAttrs: {
-      lang: 'en',
+      lang: 'ja',
     },
     meta: [
       { charset: 'utf-8' },
