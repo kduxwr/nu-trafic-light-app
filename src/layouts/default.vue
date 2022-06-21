@@ -27,15 +27,16 @@
     </v-navigation-drawer>
     <v-app-bar :clipped-left="clipped" fixed app>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-
-      <v-toolbar-title v-text="title" />
+      <v-spacer />
+      <v-toolbar-title class="text-h4">{{ time }} </v-toolbar-title>
+      <v-spacer />
     </v-app-bar>
     <v-main>
       <v-container>
         <Nuxt />
       </v-container>
     </v-main>
-    <v-footer :absolute="!fixed" app>
+    <v-footer fixed app class="d-flex justify-center">
       <span>&copy; 2022 IKEHARA Haruto.</span>
     </v-footer>
   </v-app>
@@ -65,7 +66,35 @@ export default {
       right: true,
       rightDrawer: false,
       title: '電車通り信号機アプリ',
+      timerID: null,
+      time: '',
     }
+  },
+  mounted() {
+    this.updateTime()
+    this.timerID = setInterval(this.updateTime, 1000)
+  },
+  methods: {
+    updateTime() {
+      const currentDate = new Date()
+      this.time =
+        this.zeroPadding(currentDate.getHours(), 2) +
+        ':' +
+        this.zeroPadding(currentDate.getMinutes(), 2) +
+        ':' +
+        this.zeroPadding(currentDate.getSeconds(), 2)
+    },
+    zeroPadding(num, len) {
+      let zero = ''
+
+      // 0の文字列を作成
+      for (let i = 0; i < len; i++) {
+        zero += '0'
+      }
+
+      // zeroの文字列と、数字を結合し、後ろ２文字を返す
+      return (zero + num).slice(-len)
+    },
   },
 }
 </script>
